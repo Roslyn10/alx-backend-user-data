@@ -15,7 +15,7 @@ class BasicAuth(Auth):
         of a Basic Authentication
 
         Args:
-            authorization_header (str): The full Authorization header 
+            authorization_header (str): The full Authorization header
 
         Return:
             str: The Base64 part of the Authorization header if it is valid,
