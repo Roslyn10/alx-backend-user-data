@@ -31,7 +31,8 @@ def unauthorized(error) -> str:
         error: The error object containing details about the 401 error
 
     Return:
-        A tuple containing a JSON response with an error message and the HTTP status code 401
+        A tuple containing a JSON response with an error message
+        and the HTTP status code 401
     """
     return jsonify({"error": "Unauthorized"}), 401
 
@@ -45,7 +46,8 @@ def forbidden(error) -> str:
         error: The error object containing details about the 403 error.
 
     Return:
-        A tuple containing a JSON response with an error message and the HTTP status code 403
+        A tuple containing a JSON response with an error message
+        and the HTTP status code 403
 
     """
     return jsonify({"error": "Forbidden"}), 403

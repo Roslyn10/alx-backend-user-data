@@ -20,10 +20,12 @@ class Auth:
 
         Args:
             path (str): The path of the request to check for authentication.
-            excluded_paths (List[str]): A list of paths that do not require authentication.
+            excluded_paths (List[str]): A list of paths that
+            do not require authentication.
 
         Return:
-            bool: True if the path requires authentication, False if it is in excluded paths
+            bool: True if the path requires authentication,
+            False if it is in excluded paths
         """
         if path is None:
             return True
@@ -38,10 +40,12 @@ class Auth:
         Retrieves the 'Authorization' header from an HTTP request
 
         Args:
-            request (Optional): The HTTP request object that may contain the 'Authorization' header
+            request (Optional): The HTTP request object that may contain
+            the 'Authorization' header
 
         Returns:
-            str: The value of the 'Authorization' header if it exists, otherwise None.
+            str: The value of the 'Authorization' header if it exists,
+            otherwise None.
         """
         if request is None:
             return None
@@ -55,9 +59,11 @@ class Auth:
         Retrieves the current user based on the request
 
         Args:
-            request (Optional): The HTTP request object used to determine the current user.
+            request (Optional): The HTTP request object used to
+            determine the current user.
 
         Return:
-            TypeVar('User'): The current user instance if identified, otherwise None.
+            TypeVar('User'): The current user instance if identified,
+            otherwise None.
         """
         return None
