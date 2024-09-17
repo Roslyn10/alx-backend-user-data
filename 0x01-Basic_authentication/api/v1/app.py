@@ -24,14 +24,29 @@ def not_found(error) -> str:
 
 @app.errorhandler(401)
 def unauthorized(error) -> str:
-    """Unauthorized user
+    """
+    Handle 401 Unauthorized errors.
+
+    Args:
+        error: The error object containing details about the 401 error
+
+    Return:
+        A tuple containing a JSON response with an error message and the HTTP status code 401
     """
     return jsonify({"error": "Unauthorized"}), 401
 
 
 @app.errorhandler(403)
 def forbidden(error) -> str:
-    """Forbidden access
+    """
+    Handle 403 Forbidden errors.
+
+    Args:
+        error: The error object containing details about the 403 error.
+
+    Return:
+        A tuple containing a JSON response with an error message and the HTTP status code 403
+
     """
     return jsonify({"error": "Forbidden"}), 403
 
