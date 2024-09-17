@@ -1,4 +1,4 @@
-#!/usr/bin/env puython3
+#!/usr/bin/env python3
 """ A module that is used to check authentication of users """
 
 
