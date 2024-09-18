@@ -15,7 +15,8 @@ class SessionAuth(Auth):
         Creates a Session ID for a given 'user_id'
 
         Args:
-            user_id (str): The ID of the user for who the session is being created
+            user_id (str): The ID of the user for who
+            the session is being created
 
         Return:
             The generated session ID as a string
@@ -35,7 +36,8 @@ class SessionAuth(Auth):
             Session_id (str): The session ID to look up. Defaults to None
 
         Return:
-            str: The User ID associated with the session ID, or None if the session ID is valid or not found.
+            str: The User ID associated with the session ID,
+            or None if the session ID is valid or not found.
         """
         if session_id is None or not isinstance(session_id, str):
             return None
