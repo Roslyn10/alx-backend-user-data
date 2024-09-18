@@ -26,3 +26,17 @@ class SessionAuth(Auth):
         session_id = uuid.uuid4()
         self.user_id_by_session_id[str(session_id)] = user_id
         return str(session_id)
+
+    def user_id_for_session_id(self, session_id: str = None) -> str:
+        """
+        Returns the User ID associated with a given Session ID
+
+        Args:
+            Session_id (str): The session ID to look up. Defaults to None
+
+        Return:
+            str: The User ID associated with the session ID, or None if the session ID is valid or not found.
+        """
+        if session_id is None or not isinstance(session_id, str):
+            return None
+        return self.user_id_by_session_id.get(session_id)
