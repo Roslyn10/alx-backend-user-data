@@ -69,8 +69,8 @@ class SessionAuth(Auth):
             The request object containing the session
 
         Return:
-            True if the session was successfully destroyed, 
-            False if not 
+            True if the session was successfully destroyed,
+            False if not
         """
         if request is None:
             return False
