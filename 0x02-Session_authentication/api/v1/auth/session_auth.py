@@ -63,7 +63,14 @@ class SessionAuth(Auth):
 
     def destroy_session(self, request=None):
         """
-        Destroys the sessions
+        Destroys the session for the user
+
+        Args:
+            The request object containing the session
+
+        Return:
+            True if the session was successfully destroyed, 
+            False if not 
         """
         if request is None:
             return False
@@ -76,9 +83,8 @@ class SessionAuth(Auth):
         if not user_id:
             return False
 
-        try:
-            del self.user_id_by_session_id
-        except Exception:
-            pass
+        if session_id in self.user_id_by_session_id:
+            del self.user_id_by_session_id[session_id]
+            return True
 
-        return True
+        return False
