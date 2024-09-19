@@ -37,5 +37,3 @@ def login():
             response.set_cookie(SESSION_NAME, session_id)
 
             return response
-
-    return jsonify({"error": "wrong password"}), 401
