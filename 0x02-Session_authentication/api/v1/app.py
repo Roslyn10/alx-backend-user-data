@@ -81,13 +81,13 @@ def before_request():
     if auth.authorization_header(request) is None:
         abort(401, description="Unauthorized")
 
-    if auth.authorization_header(request) and auth.session_cookie(request) is None:
+    if auth.authorization_header(request) is None and \
+            auth.session_cookie(request) is None:
         abort(401, description="Unauthorized")
 
     request.current_user = auth.current_user(request)
     if request.current_user is None:
         abort(403, description="Forbidden")
-
 
 
 if __name__ == "__main__":
