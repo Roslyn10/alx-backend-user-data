@@ -1,37 +1,45 @@
 #!/usr/bin/env python3
-"""An Authentication class that inherits from SessionExpAuth"""
+"""An authentication class that manages user sessions using database storage,
+inheriting from SessionExpAuth."""
 
 from auth.auth.session_exp_auth import SessionExpAuth
+import uuid
+from models.user_session import UserSession
 
 
 class SessionDBAuth(SessionExpAuth):
-    """Storage of the Authentication class"""
+    """Session-based authentication class that uses a database
+    to manage session storage."""
 
     def create_session(self, user_id=None):
         """
-        Creates a new session and stores an instance of UserSession
+        Creates a new session and stores an instance
+        of UserSession in the database.
 
         Args:
-            user_id (str): The ID of the user for whom to create a session
+            user_id (str): The ID of the user for whom to create a session.
 
         Returns:
-            The session ID if seccessful, otherwise None
+            The session ID if successful, otherwise None.
         """
         if user_id is None:
             return None
         session_id = str(uuid.uuid4())
         user_session = UserSession(user_id=user_id, session_id=session_id)
+        user_session.save()
         self.user_id_by_session_id[session_id] = user_session
+        return session_id
 
     def user_id_for_session_id(self, session_id=None):
         """
-        Returns the User ID from the database on the session
+        Retrieves the user ID associated with the given session ID
+        by querying the database.
 
         Args:
-            session_id (str): The session ID to look up
+            session_id (str): The session ID to look up.
 
         Returns:
-            str: The User ID if valid, otherwise None
+            The user ID if the session is valid and found, otherwise None.
         """
         if session_id is None:
             return None
@@ -45,14 +53,14 @@ class SessionDBAuth(SessionExpAuth):
 
     def destroy_session(self, request=None):
         """
-        Destroy the session by removing the UserSession from the database
-        based on session ID
+        Destroys the session by removing the corresponding UserSession from
+        the database based on the session ID.
 
         Args:
-            request (obj): The request object containing the session cookie
+            request (obj): The request object containing the session cookie.
 
         Returns:
-            True if session is destroyed, False otherwise
+            True if the session is successfully destroyed, False otherwise.
         """
         if request is None:
             return False
@@ -60,7 +68,7 @@ class SessionDBAuth(SessionExpAuth):
         if session_id is None:
             return False
         try:
-            user_session = UserSession.search({"session_id"}): session_id})
+            user_session = UserSession.search({"session_id": session_id})
         except Exception:
             return False
         if not user_session:
