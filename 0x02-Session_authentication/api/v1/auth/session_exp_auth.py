@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-"""Adding an expiration date to a Session ID"""
+"""Adding an expiration Session ID for the API"""
 
 from .session_auth import SessionAuth
 import os
 from datetime import datetime, timedelta
 
 
-class SessionExpAuth(Session_Auth):
-    """A class that inherits from SessionAuth and handles session expiration"""
+class SessionExpAuth(SessionAuth):
+    """A class that inherits from SessionAuth and handles session expiration."""
 
     def __init__(self):
-        """Initiates the class with a session duration"""
+        """Initializes the class with a session duration."""
         try:
             self.session_duration = int(os.getenv('SESSION_DURATION', 0))
         except ValueError:
@@ -19,37 +19,37 @@ class SessionExpAuth(Session_Auth):
     def create_session(self, user_id=None):
         """
         Creates a session ID for a given user ID,
-        includeing the session's creation time
+        including the session's creation time.
 
         Args:
-            user_id (str): The ID of the user for whom to create a session
+            user_id (str): The ID of the user for whom to create a session.
 
         Returns:
-            str: The session ID if successful, otherwise None
+            str: The session ID if successful; otherwise, None.
         """
         session_id = super().create_session(user_id)
         if type(session_id) != str:
             return None
-        self.user_id_session_id[session_id] = {
-                'user_id': user_id,
-                'created_at': datetime.now(),
-                }
+        self.user_id_by_session_id[session_id] = {  # Fixed typo here
+            'user_id': user_id,
+            'created_at': datetime.now(),
+        }
         return session_id
 
     def user_id_for_session_id(self, session_id=None):
         """
         Retrieves the user ID for a given session ID,
-        considering session duration
+        considering session duration.
 
         Args:
-            session_id (str): The session Id to look up
+            session_id (str): The session ID to look up.
 
         Returns:
-            str: The user Id if valid, otherwise None
+            str: The user ID if valid; otherwise, None.
         """
         if session_id is None:
             return None
-        session_data = self.user_id_by_session_id.get(Session_id)
+        session_data = self.user_id_by_session_id.get(session_id)  # Fixed typo here
         if session_data is None:
             return None
         user_id = session_data.get('user_id')
