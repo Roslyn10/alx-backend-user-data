@@ -31,14 +31,15 @@ class SessionExpAuth(Session_Auth):
         if type(session_id) != str:
             return None
         self.user_id_session_id[session_id] = {
-                'user_id' : user_id,
-                'created_at' : datetime.now(),
+                'user_id': user_id,
+                'created_at': datetime.now(),
                 }
         return session_id
 
     def user_id_for_session_id(self, session_id=None):
         """
-        Retrieves the user ID for a given session ID, considering session duration
+        Retrieves the user ID for a given session ID,
+        considering session duration
 
         Args:
             session_id (str): The session Id to look up
