@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 
 
 class SessionExpAuth(SessionAuth):
-    """A class that inherits from SessionAuth and handles session expiration."""
+    """A class that inherits from SessionAuth and handles session expiration"""
 
     def __init__(self):
         """Initializes the class with a session duration."""
@@ -30,7 +30,7 @@ class SessionExpAuth(SessionAuth):
         session_id = super().create_session(user_id)
         if type(session_id) != str:
             return None
-        self.user_id_by_session_id[session_id] = {  # Fixed typo here
+        self.user_id_by_session_id[session_id] = {
             'user_id': user_id,
             'created_at': datetime.now(),
         }
@@ -49,7 +49,7 @@ class SessionExpAuth(SessionAuth):
         """
         if session_id is None:
             return None
-        session_data = self.user_id_by_session_id.get(session_id)  # Fixed typo here
+        session_data = self.user_id_by_session_id.get(session_id)
         if session_data is None:
             return None
         user_id = session_data.get('user_id')
