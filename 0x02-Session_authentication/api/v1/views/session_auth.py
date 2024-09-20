@@ -50,9 +50,9 @@ def logout():
     DELETE /auth_session/logout:
     Deletes a session for a user
     """
-    delete = auth.destroy_session(request)
+    is_deleted = auth.destroy_session(request)
 
-    if not delete:
+    if not is_deleted:
         abort(404)
 
     return jsonify({}), 200
