@@ -2,7 +2,8 @@
 """An authentication class that manages user sessions using database storage,
 inheriting from SessionExpAuth."""
 
-from auth.auth.session_exp_auth import SessionExpAuth
+
+from .session_exp_auth import SessionExpAuth
 import uuid
 from models.user_session import UserSession
 
