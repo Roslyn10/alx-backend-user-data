@@ -3,6 +3,7 @@
 
 from models.base import Base
 
+
 class UserSession(Base):
     """A user session that inherits from base"""
 
@@ -12,9 +13,8 @@ class UserSession(Base):
 
         Args:
             *args: Variable length argument list
-            **kwargs: Keyword arguments 
+            **kwargs: Keyword arguments
         """
         super().__init__(*args, **kwargs)
         self.user_id = kwargs.get('user_id', None)
         self.session_id = kwards.get('session_id', None)
-
