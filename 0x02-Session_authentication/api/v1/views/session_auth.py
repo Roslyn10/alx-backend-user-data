@@ -50,6 +50,7 @@ def logout():
     DELETE /auth_session/logout:
     Deletes a session for a user
     """
+    from api.v1.app import auth
     is_deleted = auth.destroy_session(request)
 
     if not is_deleted:
