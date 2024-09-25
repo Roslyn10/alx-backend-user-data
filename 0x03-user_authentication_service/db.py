@@ -69,5 +69,5 @@ class DB:
             return user
         except NoResultFound:
             raise NoResultFound
-        except InvalidRequestError:
+        except Exception as e:
             raise InvalidRequestError
