@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """A basic Flask app"""
 
-from flask import Flask, jsonify, abort, request, redirect
+from flask import Flask, jsonify
 from auth import Auth
 
 app = Flask(__name__)
 auth = Auth()
 
 
-@app.route("/", method=['GET'], strict_slashes=Flase)
-def index(): -> str:
+@app.route("/", methods=['GET'], strict_slashes=False)
+def index() -> str:
     """ GET /
     Return JSON payload of the form
     """
