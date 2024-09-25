@@ -71,3 +71,8 @@ class DB:
             raise NoResultFound
         except Exception as e:
             raise InvalidRequestError
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """
+        """
+        `
