@@ -17,13 +17,17 @@ def index() -> str:
 
 
 @app.route("/", methods=['POST'], strict_slashes=False)
-def users(self, email: str, password: str) -> str:
+def users(email: str, password: str) -> str:
     """POST /
     Implements the end-point to register a user
     """
-    email, password = request.form.get("email"), request.form.get("password")
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    if email is None or password is None:
+        return jsonify({"message": "email and password required"}), 400
     try:
-        AUTH.register_user(email, password)
+        auth.register_user(email, password)
         return jsonify({
             "email": "<registered email>", "message": "user created"
             })
