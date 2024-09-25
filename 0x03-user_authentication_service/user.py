@@ -13,10 +13,10 @@ class User(Base):
 
     Columns:
         id: Integer, primary key for the table
-        email: Non-nullable string with maximu length of 250 chars 
+        email: Non-nullable string with maxi length of 250 chars
         hashed_password: Non-nullable string used to store hashed passwords
         session_id: Nullable string (optional), for tracking user sessions
-        reset_token: Nullable string (optional), for password reset functionality
+        reset_token: Nullable string(optional),for password reset functionality
 
     """
     __tablename__ = 'users'
@@ -25,6 +25,3 @@ class User(Base):
     hashed_password = Column(String(250), nullable=False)
     session_id = Column(String(250), nullable=True)
     reset_token = Column(String(250), nullable=True)
-
-
-
