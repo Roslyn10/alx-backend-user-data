@@ -75,4 +75,3 @@ class DB:
     def update_user(self, user_id: int, **kwargs) -> None:
         """
         """
-        `
