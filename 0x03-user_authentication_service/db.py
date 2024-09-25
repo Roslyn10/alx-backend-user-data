@@ -58,7 +58,8 @@ class DB:
         Finds a user in the database by arbitrary keyword arguments
 
         Args:
-            **kwargs: Arbitrary keywords arguments corresponding to User attributes
+            **kwargs: Arbitrary keywords arguments corresponding
+            to User attributes
 
         Returns:
             User: The user found that matches the given criteria
