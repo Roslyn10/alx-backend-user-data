@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """DB module
 """
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, tuple_
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
@@ -64,14 +64,13 @@ class DB:
         Returns:
             User: The user found that matches the given criteria
         """
-        all_users = self._session.query(User)
-        for k, v in kwargs.items():
-            if k not in User.__dict__:
-                raise InvalidRequestError
-            for usr in all_users:
-                if getattr(usr, k) == v:
-                    return usr
-        raise NoResultFound
+        try:
+            user = self._session.query(User).filter_by(**kwargs).one()
+            return user
+        except NoResultFound:
+            raise NoResultFound
+        except Exception as e:
+            raise InvalidRequestError
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """
