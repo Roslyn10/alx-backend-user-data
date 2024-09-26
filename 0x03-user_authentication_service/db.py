@@ -64,13 +64,14 @@ class DB:
         Returns:
             User: The user found that matches the given criteria
         """
-        try:
-            user = self._session.query(User).filter_by(**kwargs).one()
-            return user
-        except NoResultFound:
-            raise NoResultFound("No user found with the specified parameters")
-        except InvalidRequestError:
-            raise InvalidRequestError("Invalid request parameters")
+        all_users = self._session.query(User)
+        for k, v in kwargs.items():
+            if k not in User.__dict__:
+                raise InvalidRequestError
+            for usr in all_users:
+                if getattr(usr, k) == v:
+                    return usr
+        raise NoResultFound
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """
