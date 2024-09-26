@@ -68,10 +68,33 @@ class DB:
             user = self._session.query(User).filter_by(**kwargs).one()
             return user
         except NoResultFound:
-            raise NoResultFound
-        except Exception as e:
-            raise InvalidRequestError
+            raise NoResultFound("No user found with the specified parameters")
+        except InvalidRequestError:
+            raise InvalidRequestError("Invalid request parameters")
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """
+        Updates a user in the database
+
+        Args:
+            user_id (int): The ID of the user to update
+            kwargs: Key-value pairs of attributes to updates
+
+        Raises:
+            ValueError: If any of the kwargs do not correspond to a value
+            NoResultFound: If no user with the given user_id is found
+            InvalidRequestError: If there is an invalid request with the database
         """
+        try:
+            user = self.find_user_by(id=user_id)
+        except NoResultFound:
+            raise NoResultFound
+        except InvalidRequestError:
+            raise InvalidRequestError
+
+        for key, value in kwargs.items():
+            if hasattr(user, key):
+                setattr(user, key, value)
+            else:
+                raise ValueError(f"User has no attribute '{key}'")
+            self._session.commit()
