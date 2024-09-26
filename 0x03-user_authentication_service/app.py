@@ -32,9 +32,12 @@ def users() -> str:
     return jsonify({"email": f"{email}", "message": "user created"})
 
 
-@app.route("/sessions", methods=["POST"], stric_slashes=False)
+@app.route("/sessions", methods=["POST"], strict_slashes=False)
 def login() -> str:
     """
+    POST /sessions
+    Return:
+        - The account login
     """
     email, password = request.form.get("email"), request.form.get("password")
     if not auth.valid_login(email, password):
@@ -43,6 +46,20 @@ def login() -> str:
         response = jsonify({"email": email, "message": "logged in"})
         response.set_cookie("session_id", session_id)
         return response
+
+
+@app.route("/sessions", methods=["POST"], strict_slashes=False)
+def logout() -> str:
+    """ DELETE / sessions
+    Return:
+        - Redirects to home route
+    """
+    session_id = request.cookies.get("session_d")
+    user = authget_user_from_session_id(session_id)
+    if user is None:
+        abort(403)
+        auth.destroy_session(user.id)
+        return redirect("/")
 
 
 if __name__ == "__main__":
