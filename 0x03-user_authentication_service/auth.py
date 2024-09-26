@@ -54,6 +54,13 @@ class Auth:
     def valid_login(self, email: str, password: str) -> bool:
         """
         Validates if the users credentials are correct
+
+        Args:
+            email (str): The user's email
+            password (str): The user's password
+
+        Returns:
+            bool: True if the credentials are valid, otherwise Fasle
         """
         try:
             user = find_user_by(email=email)
@@ -90,7 +97,13 @@ class Auth:
 
     def get_user_from_session_id(self, session_id: str) -> Union[User, None]:
         """
-        takes a session_id string argument and returns the corresponding user
+        Retrieves a user from the session ID
+
+        Args:
+            session_id (str): The session ID
+
+        Return:
+            User or None: The corresponding User object or None if not found
         """
         user = None
         if session_id is None:
@@ -103,7 +116,10 @@ class Auth:
 
     def destroy_session(sef, user_id: int) -> None:
         """
-        Destroys a session
+        Destroys the session for the specified user
+
+        Args:
+            user_id (int): The ID of the user whose session should be destroyed
         """
         if user_id is None:
             return None
@@ -111,6 +127,16 @@ class Auth:
 
     def get_reset_password_token(self, email: str) -> str:
         """
+        Generates a reset password token for the specified user
+
+        Args:
+            emails (str): The user's email
+
+        Returns:
+            str: The reset password token
+
+        Raises:
+            ValueError: If the user is not found
         """
         try:
             user = self._db.find_user_by(email=email)
@@ -123,6 +149,14 @@ class Auth:
 
     def upate_password(reset_token: str, password: str) -> None:
         """
+        Updates the user's password using the provided reset token
+
+        Args:
+            reset_token (str): The reset token for the user
+            password (str): The new password
+
+        Raises:
+            ValueError: If the reset token is invalid or the user is not found
         """
         try:
             user = self._db.find_user_by(reset_token=reset_token)
