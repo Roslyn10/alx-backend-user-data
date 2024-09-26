@@ -61,6 +61,7 @@ def logout() -> str:
         auth.destroy_session(user.id)
         return redirect("/")
 
+
 @app.route("/profile", methods=["POST"], strict_slashes=False)
 def profile() -> str:
     """
@@ -73,6 +74,7 @@ def profile() -> str:
     if not user:
         abort(403)
         return jsonify({"email": user.email})
+
 
 @app.route("/reset_password", method=["POST"], strict_slashes=False)
 def get_reset_password_token() -> str:
@@ -89,7 +91,23 @@ def get_reset_password_token() -> str:
     return jsonify({"email": f"{email}", "reser_token": f"{reset_token}"})
 
 
+@app.route("/reset_password", method=["PUT"], strict_slashes=False)
+def update_password() -> str:
+    """
+    PUT /reset_password
+    Return:
+        -
+    """
+    email = request.form.get("email")
+    reset_token = request.form.get("reset_token")
+    new_password = request.form.get("new_password")
 
+    try:
+        auth.update_password(reset_token, new_password)
+    except ValueError:
+        abort(403)
+
+    return jsonify({"email": f"{email}", "message": "Password updated"})
 
 
 if __name__ == "__main__":
