@@ -83,7 +83,8 @@ class DB:
         Raises:
             ValueError: If any of the kwargs do not correspond to a value
             NoResultFound: If no user with the given user_id is found
-            InvalidRequestError: If there is an invalid request with the database
+            InvalidRequestError: If there is an invalid request
+            with the database
         """
         try:
             user = self.find_user_by(id=user_id)
